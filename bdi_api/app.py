@@ -1,6 +1,9 @@
 import logging
 from contextlib import asynccontextmanager
 from typing import AsyncIterator
+from dotenv import load_dotenv
+import os
+import boto3
 
 from fastapi import FastAPI
 from starlette import status
@@ -11,9 +14,16 @@ from bdi_api.examples import v0_router
 from bdi_api.s1.exercise import s1
 from bdi_api.s4.exercise import s4
 
+load_dotenv()
+
+s3_client = boto3.client(
+    "s3",
+    aws_access_key_id=os.getenv("AWS_ACCESS_KEY_ID"),
+    aws_secret_access_key=os.getenv("AWS_SECRET_ACCESS_KEY"),
+    aws_session_token=os.getenv("AWS_SESSION_TOKEN")
+)
 
 logger = logging.getLogger("uvicorn.error")
-
 
 @asynccontextmanager
 async def lifespan(app: FastAPI) -> AsyncIterator:
@@ -21,7 +31,6 @@ async def lifespan(app: FastAPI) -> AsyncIterator:
     logger.info("Application started. You can check the documentation in http://localhost:8080/docs/")
     yield
     logger.warning("Application shutdown")
-
 
 description = """
 # Welcome to the Aircraft API
@@ -44,12 +53,12 @@ app = FastAPI(
     title="bdi-api",
     version=bdi_api.__version__,
     description=description,
+    lifespan=lifespan
 )
 
 app.include_router(v0_router)
 app.include_router(s1)
 app.include_router(s4)
-
 
 @app.get("/health", status_code=200)
 async def get_health() -> JSONResponse:
@@ -58,17 +67,13 @@ async def get_health() -> JSONResponse:
         content="ok",
     )
 
-
 @app.get("/version", status_code=200)
 async def get_version() -> dict:
     return {"version": bdi_api.__version__}
 
-
 def main() -> None:
     import uvicorn
-
     uvicorn.run(app, host="0.0.0.0", port=8080, proxy_headers=True, access_log=False)
-
 
 if __name__ == "__main__":
     main()
