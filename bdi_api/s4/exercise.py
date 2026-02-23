@@ -1,6 +1,7 @@
 import gzip
 import json
 import os
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from typing import Annotated
 
 import boto3
@@ -20,6 +21,18 @@ s4 = APIRouter(
     prefix="/api/s4",
     tags=["s4"],
 )
+
+
+def download_and_upload(link: str, base_url: str, s3_bucket: str, s3_prefix_path: str) -> None:
+    s3_client = boto3.client("s3")
+    file_url = base_url + link
+    file_response = httpx.get(file_url, follow_redirects=True)
+    s3_key = s3_prefix_path + link
+    s3_client.put_object(
+        Bucket=s3_bucket,
+        Key=s3_key,
+        Body=file_response.content,
+    )
 
 
 @s4.post("/aircraft/download")
@@ -51,17 +64,13 @@ def download_data(
 
     links = links[:file_limit]
 
-    s3_client = boto3.client("s3")
-
-    for link in links:
-        file_url = base_url + link
-        file_response = httpx.get(file_url, follow_redirects=True)
-        s3_key = s3_prefix_path + link
-        s3_client.put_object(
-            Bucket=s3_bucket,
-            Key=s3_key,
-            Body=file_response.content,
-        )
+    with ThreadPoolExecutor(max_workers=10) as executor:
+        futures = [
+            executor.submit(download_and_upload, link, base_url, s3_bucket, s3_prefix_path)
+            for link in links
+        ]
+        for future in as_completed(futures):
+            future.result()
 
     return "OK"
 
@@ -98,7 +107,7 @@ def prepare_data() -> str:
         try:
             json_data = gzip.decompress(compressed_data)
         except gzip.BadGzipFile:
-              json_data = compressed_data
+            json_data = compressed_data
         data = json.loads(json_data)
 
         aircraft_list = data.get("aircraft", [])
