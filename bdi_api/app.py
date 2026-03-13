@@ -17,6 +17,7 @@ from bdi_api.s4.exercise import s4
 from bdi_api.s5.exercise import s5
 from bdi_api.s6.exercise import s6
 from bdi_api.s7.exercise import s7
+from bdi_api.s8.exercise import s8
 load_dotenv()
 
 s3_client = boto3.client(
@@ -65,6 +66,7 @@ app.include_router(s4)
 app.include_router(s5)
 app.include_router(s6)
 app.include_router(s7)
+app.include_router(s8)
 
 @app.get("/health", status_code=200)
 async def get_health() -> JSONResponse:
