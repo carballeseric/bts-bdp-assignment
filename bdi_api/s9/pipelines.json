@@ -1,0 +1,202 @@
+[
+  {
+    "id": "run-001",
+    "repository": "bts-bdp-assignment",
+    "branch": "main",
+    "status": "success",
+    "triggered_by": "push",
+    "started_at": "2024-03-01T10:00:00",
+    "finished_at": "2024-03-01T10:15:00",
+    "stages": ["lint", "test", "build", "deploy"],
+    "stage_details": [
+      {
+        "name": "lint",
+        "status": "success",
+        "started_at": "2024-03-01T10:00:00",
+        "finished_at": "2024-03-01T10:02:00",
+        "logs_url": "/api/s9/pipelines/run-001/stages/lint/logs"
+      },
+      {
+        "name": "test",
+        "status": "success",
+        "started_at": "2024-03-01T10:02:00",
+        "finished_at": "2024-03-01T10:08:00",
+        "logs_url": "/api/s9/pipelines/run-001/stages/test/logs"
+      },
+      {
+        "name": "build",
+        "status": "success",
+        "started_at": "2024-03-01T10:08:00",
+        "finished_at": "2024-03-01T10:12:00",
+        "logs_url": "/api/s9/pipelines/run-001/stages/build/logs"
+      },
+      {
+        "name": "deploy",
+        "status": "success",
+        "started_at": "2024-03-01T10:12:00",
+        "finished_at": "2024-03-01T10:15:00",
+        "logs_url": "/api/s9/pipelines/run-001/stages/deploy/logs"
+      }
+    ]
+  },
+  {
+    "id": "run-002",
+    "repository": "bts-bdp-assignment",
+    "branch": "feature/new-endpoint",
+    "status": "failure",
+    "triggered_by": "pull_request",
+    "started_at": "2024-03-02T09:00:00",
+    "finished_at": "2024-03-02T09:05:00",
+    "stages": ["lint", "test", "build", "deploy"],
+    "stage_details": [
+      {
+        "name": "lint",
+        "status": "success",
+        "started_at": "2024-03-02T09:00:00",
+        "finished_at": "2024-03-02T09:01:00",
+        "logs_url": "/api/s9/pipelines/run-002/stages/lint/logs"
+      },
+      {
+        "name": "test",
+        "status": "failure",
+        "started_at": "2024-03-02T09:01:00",
+        "finished_at": "2024-03-02T09:05:00",
+        "logs_url": "/api/s9/pipelines/run-002/stages/test/logs"
+      },
+      {
+        "name": "build",
+        "status": "skipped",
+        "started_at": "2024-03-02T09:05:00",
+        "finished_at": "2024-03-02T09:05:00",
+        "logs_url": "/api/s9/pipelines/run-002/stages/build/logs"
+      },
+      {
+        "name": "deploy",
+        "status": "skipped",
+        "started_at": "2024-03-02T09:05:00",
+        "finished_at": "2024-03-02T09:05:00",
+        "logs_url": "/api/s9/pipelines/run-002/stages/deploy/logs"
+      }
+    ]
+  },
+  {
+    "id": "run-003",
+    "repository": "another-repo",
+    "branch": "main",
+    "status": "running",
+    "triggered_by": "schedule",
+    "started_at": "2024-03-03T08:00:00",
+    "finished_at": null,
+    "stages": ["lint", "test", "build", "deploy"],
+    "stage_details": [
+      {
+        "name": "lint",
+        "status": "success",
+        "started_at": "2024-03-03T08:00:00",
+        "finished_at": "2024-03-03T08:01:00",
+        "logs_url": "/api/s9/pipelines/run-003/stages/lint/logs"
+      },
+      {
+        "name": "test",
+        "status": "running",
+        "started_at": "2024-03-03T08:01:00",
+        "finished_at": null,
+        "logs_url": "/api/s9/pipelines/run-003/stages/test/logs"
+      },
+      {
+        "name": "build",
+        "status": "pending",
+        "started_at": "2024-03-03T08:01:00",
+        "finished_at": null,
+        "logs_url": "/api/s9/pipelines/run-003/stages/build/logs"
+      },
+      {
+        "name": "deploy",
+        "status": "pending",
+        "started_at": "2024-03-03T08:01:00",
+        "finished_at": null,
+        "logs_url": "/api/s9/pipelines/run-003/stages/deploy/logs"
+      }
+    ]
+  },
+  {
+    "id": "run-004",
+    "repository": "another-repo",
+    "branch": "hotfix/bug-fix",
+    "status": "pending",
+    "triggered_by": "manual",
+    "started_at": "2024-03-04T07:00:00",
+    "finished_at": null,
+    "stages": ["lint", "test", "build", "deploy"],
+    "stage_details": [
+      {
+        "name": "lint",
+        "status": "pending",
+        "started_at": "2024-03-04T07:00:00",
+        "finished_at": null,
+        "logs_url": "/api/s9/pipelines/run-004/stages/lint/logs"
+      },
+      {
+        "name": "test",
+        "status": "pending",
+        "started_at": "2024-03-04T07:00:00",
+        "finished_at": null,
+        "logs_url": "/api/s9/pipelines/run-004/stages/test/logs"
+      },
+      {
+        "name": "build",
+        "status": "pending",
+        "started_at": "2024-03-04T07:00:00",
+        "finished_at": null,
+        "logs_url": "/api/s9/pipelines/run-004/stages/build/logs"
+      },
+      {
+        "name": "deploy",
+        "status": "pending",
+        "started_at": "2024-03-04T07:00:00",
+        "finished_at": null,
+        "logs_url": "/api/s9/pipelines/run-004/stages/deploy/logs"
+      }
+    ]
+  },
+  {
+    "id": "run-005",
+    "repository": "bts-bdp-assignment",
+    "branch": "main",
+    "status": "success",
+    "triggered_by": "push",
+    "started_at": "2024-03-05T11:00:00",
+    "finished_at": "2024-03-05T11:20:00",
+    "stages": ["lint", "test", "build", "deploy"],
+    "stage_details": [
+      {
+        "name": "lint",
+        "status": "success",
+        "started_at": "2024-03-05T11:00:00",
+        "finished_at": "2024-03-05T11:03:00",
+        "logs_url": "/api/s9/pipelines/run-005/stages/lint/logs"
+      },
+      {
+        "name": "test",
+        "status": "success",
+        "started_at": "2024-03-05T11:03:00",
+        "finished_at": "2024-03-05T11:10:00",
+        "logs_url": "/api/s9/pipelines/run-005/stages/test/logs"
+      },
+      {
+        "name": "build",
+        "status": "success",
+        "started_at": "2024-03-05T11:10:00",
+        "finished_at": "2024-03-05T11:15:00",
+        "logs_url": "/api/s9/pipelines/run-005/stages/build/logs"
+      },
+      {
+        "name": "deploy",
+        "status": "success",
+        "started_at": "2024-03-05T11:15:00",
+        "finished_at": "2024-03-05T11:20:00",
+        "logs_url": "/api/s9/pipelines/run-005/stages/deploy/logs"
+      }
+    ]
+  }
+]
